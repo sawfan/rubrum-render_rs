@@ -1,0 +1,140 @@
+# Natal example data (ChartData)
+#
+# This file deserializes into:
+# - ChartData
+
+[data]
+
+# House cusps expressed as sign + reduced degree.
+#
+# Note: DSC/IC/etc are implied by the relevant house cusps; the renderer uses the 12 house cusps.
+[[data.house_cusps]]
+house = "First"
+sign_degree = { sign = "Scorpio", degree = 24.0, minutes = 31.0 }
+
+[[data.house_cusps]]
+house = "Second"
+sign_degree = { sign = "Sagittarius", degree = 23.0, minutes = 23.0 }
+
+[[data.house_cusps]]
+house = "Third"
+sign_degree = { sign = "Capricorn", degree = 22.0, minutes = 48.0 }
+
+[[data.house_cusps]]
+house = "Fourth"
+sign_degree = { sign = "Aquarius", degree = 23.0, minutes = 50.0 }
+
+[[data.house_cusps]]
+house = "Fifth"
+sign_degree = { sign = "Pisces", degree = 25.0, minutes = 55.0 }
+
+[[data.house_cusps]]
+house = "Sixth"
+sign_degree = { sign = "Aries", degree = 26.0, minutes = 40.0 }
+
+[[data.house_cusps]]
+house = "Seventh"
+sign_degree = { sign = "Taurus", degree = 24.0, minutes = 31.0 }
+
+[[data.house_cusps]]
+house = "Eighth"
+sign_degree = { sign = "Gemini", degree = 23.0, minutes = 23.0 }
+
+[[data.house_cusps]]
+house = "Ninth"
+sign_degree = { sign = "Cancer", degree = 22.0, minutes = 48.0 }
+
+[[data.house_cusps]]
+house = "Tenth"
+sign_degree = { sign = "Leo", degree = 23.0, minutes = 50.0 }
+
+[[data.house_cusps]]
+house = "Eleventh"
+sign_degree = { sign = "Virgo", degree = 25.0, minutes = 55.0 }
+
+[[data.house_cusps]]
+house = "Twelfth"
+sign_degree = { sign = "Libra", degree = 26.0, minutes = 40.0 }
+
+# Datasets are named placement lists used by dataset-bound lanes.
+#
+# DatasetData = { id = String, bodies = Vec<PlacementMotion> }
+# PlacementMotion = { placement = Placement, motion = Motion }
+
+[[data.datasets]]
+id = "natal"
+
+# Planets / bodies.
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Scorpio", degree = 8.0, minutes = 21.0 } }, occupant = { Body = "Sun" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Aries", degree = 23.0, minutes = 40.0 } }, occupant = { Body = "Moon" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Scorpio", degree = 29.0, minutes = 29.0 } }, occupant = { Body = "Mercury" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Sagittarius", degree = 11.0, minutes = 45.0 } }, occupant = { Body = "Venus" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Capricorn", degree = 14.0, minutes = 15.0 } }, occupant = { Body = "Mars" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Taurus", degree = 16.0, minutes = 55.0 } }, occupant = { Body = "Jupiter" } }
+motion = "Retrograde"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Libra", degree = 20.0, minutes = 26.0 } }, occupant = { Body = "Saturn" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Cancer", degree = 18.0, minutes = 30.0 } }, occupant = { Body = "Uranus" } }
+motion = "Retrograde"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Libra", degree = 22.0, minutes = 4.0 } }, occupant = { Body = "Neptune" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Leo", degree = 23.0, minutes = 7.0 } }, occupant = { Body = "Pluto" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Capricorn", degree = 8.0, minutes = 19.0 } }, occupant = { Body = "Chiron" } }
+motion = "Direct"
+
+# Additional points.
+#
+# Assumptions:
+# - "Node" -> ChartPoint::TrueNode
+# - "Lilith" -> ChartPoint::MeanApog
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Aquarius", degree = 17.0, minutes = 19.0 } }, occupant = { ChartPoint = "TrueNode" } }
+motion = "Retrograde"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Leo", degree = 24.0, minutes = 6.0 } }, occupant = { ChartPoint = "MeanApog" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Taurus", degree = 9.0, minutes = 50.0 } }, occupant = { Lot = "Fortune" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Pisces", degree = 0.0, minutes = 6.0 } }, occupant = { Angle = "Vertex" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Scorpio", degree = 24.0, minutes = 31.0 } }, occupant = { Angle = "Ascendant" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Leo", degree = 23.0, minutes = 50.0 } }, occupant = { Angle = "Midheaven" } }
+motion = "Direct"
+

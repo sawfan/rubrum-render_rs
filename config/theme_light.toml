@@ -1,0 +1,45 @@
+# Shared light theme for spec examples.
+#
+# This file deserializes into:
+# - Theme
+
+[theme]
+
+[theme.aspects]
+enabled = true
+radius_factor = 1.0
+require_endpoints_present = true
+
+[theme.aspects.stroke]
+# color omitted => falls back to `theme.effective_base_colors().muted`
+width = 1.2
+alpha = 0.55
+
+[theme.cairo]
+occupant_glyph_mode = "PreferSvgFallbackText"
+occupant_symbol_size = 25.0
+placement_collision_avoidance = false
+
+# Prefer the black glyph set on light backgrounds.
+# (This is intentionally explicit; we are treating light mode as just another theme.)
+glyph_set = "black"
+
+[theme.svg]
+# Tight SVG wheel canvas for chart composition.
+fill_canvas = true
+fill_canvas_margin_px = 0.0
+
+[theme.dataset_colors]
+# A subtle near-black used for glyph/text defaults when a dataset color is used.
+
+# Optional aspect-grid palette overrides.
+#
+# If omitted, the aspect-grid renderer derives sensible defaults from the theme.
+[theme.svg.aspect_grid]
+canvas_bg = { r = 1.0, g = 1.0, b = 1.0, a = 1.0 }
+cell_bg = { r = 0.95, g = 0.96, b = 0.97, a = 1.0 }
+grid_line = { r = 0.05, g = 0.05, b = 0.05, a = 0.20 }
+text = { r = 0.05, g = 0.05, b = 0.05, a = 1.0 }
+
+natal = { r = 0.05, g = 0.05, b = 0.05, a = 1.0 }
+

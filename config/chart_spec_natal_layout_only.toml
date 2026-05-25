@@ -1,0 +1,135 @@
+# Natal example: reusable layout only (no theme, no data).
+#
+# This file deserializes into:
+# - Layout
+
+[layout]
+
+[[layout.bands]]
+id = "signs"
+thickness = 70.0
+fill = { r = 1.0, g = 1.0, b = 1.0, a = 0.0 }
+# boundary color omitted => falls back to theme structure color
+boundary = { width = 2.0 }
+# tick stroke omitted => falls back to theme ticks color
+ticks_inner = { enabled = true, anchor = "inner", direction = "outward", length_out = 30.0 }
+# Second tick system on the opposite boundary (outer edge of the sign band).
+# Keep these shorter so they read as secondary.
+ticks_outer = { enabled = false, anchor = "outer", direction = "inward", length_in = 30.0 }
+signs = { enabled = true, dividers = true, labels = true }
+
+[[layout.bands]]
+id = "natal"
+thickness = 140.0
+houses = { enabled = true, numbers = false, spoke_to_center = false, axes = { enabled = true, to_center = false, asc_desc = true, mc_ic = true, stroke = { width = 4.0 } }, spoke = { width = 2.0 } }
+#boundary = { width = 1.5 }
+
+[[layout.bands.lanes]]
+id = "bodies"
+dataset = "natal"
+
+# Split out the lane's glyph config into subtables to keep it readable.
+[layout.bands.lanes.glyphs]
+mode = "bodies"
+# Pull glyphs slightly inward from the outer boundary so they don't overlap
+# the boundary-anchored placement ticks.
+radial_bias = 0.8
+collision_avoidance = { enabled = true }
+
+[layout.bands.lanes.glyphs.placement_ticks]
+enabled = true
+length = 10.0
+offset = 2.0
+# Leave a gap so the connector tick stops short of the glyph.
+end_gap = 16.0
+
+[layout.bands.lanes.glyphs.placement_boundary_ticks]
+enabled = true
+direction = "inward"
+length_in = 6.0
+length_out = 4.0
+offset_in = 0.0
+offset_out = 1.0
+width = 2.0
+
+[layout.bands.lanes.glyphs.placement_labels]
+enabled = true
+collision_avoidance = true
+offset_in = 20.0
+step_in = 10.0
+
+# Inline-table segments allow per-segment styling overrides.
+# - "{sign_glyph}" tries to inject an SVG sign glyph; otherwise it falls back to unicode sign text.
+segments = [
+  { text = "{deg}°", font_size = 10.0 },
+  { text = "{sign_glyph}", sign_glyph = { size = 14.0 } },
+  { text = "{min}′", font_size = 9.0 },
+]
+
+[layout.bands.lanes.glyphs.placement_labels.text]
+font_size = 10.0
+
+# Default styling for sign glyph segments (can be overridden per segment).
+[layout.bands.lanes.glyphs.placement_labels.sign_glyph]
+size = 12.0
+
+[layout.bands.lanes.overrides]
+fill = { r = 0.0, g = 0.0, b = 0.0, a = 0.1 }
+
+[[layout.bands]]
+id = "house_numbers"
+thickness = 30.0
+fill = { r = 1.0, g = 1.0, b = 1.0, a = 0.0 }
+# boundary color omitted => falls back to theme structure color
+boundary = { width = 1.0 }
+# Render house cusp spokes (dividers) within the same band as the house numbers.
+houses = { enabled = true, numbers = false, spoke_to_center = false, house_set = "natal" }
+
+[[layout.bands.lanes]]
+id = "house_numbers"
+# Structural lane: binds a house cusp set (defaults to "natal" if omitted).
+house_set = "natal"
+
+[layout.bands.lanes.glyphs]
+mode = "house_numbers"
+radial_bias = 0.5
+
+[layout.bands.lanes.overrides]
+font_family = "DejaVu Sans"
+font_size = 14.0
+
+[[layout.bands]]
+id = "aspects"
+thickness = 20.0
+fill = { r = 1.0, g = 1.0, b = 1.0, a = 0.0 }
+# boundary intentionally omitted: this band is currently tick-only and should not add another ring stroke.
+
+[[layout.bands.lanes]]
+id = "aspects"
+dataset = "natal"
+# Optional per-lane endpoint filter.
+#
+# This filter applies to:
+# - placement boundary ticks
+# - placement glyphs/text
+# - aspect computation (for the Aspects anchor lane)
+#
+# Example: exclude the Sun from this lane.
+#endpoint_filter = { exclude_endpoints = ["sun"] }
+
+[layout.bands.lanes.glyphs]
+mode = "aspects"
+radial_bias = 0.5
+
+[layout.bands.lanes.glyphs.placement_boundary_ticks]
+enabled = true
+direction = "inward"
+length_in = 8.0
+length_out = 0.0
+offset_in = 0.0
+offset_out = 0.0
+width = 2.0
+
+[layout.bands.lanes.overrides]
+# stroke omitted => falls back to theme ticks color
+

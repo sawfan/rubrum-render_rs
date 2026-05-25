@@ -1,0 +1,237 @@
+# Transit example data (ChartData)
+#
+# This file deserializes into:
+# - ChartData
+#
+# Transit charts typically have at least two datasets:
+# - natal (reference chart)
+# - transit (current sky)
+#
+# The layout can then bind lanes to either dataset, and aspect lanes can compute:
+# - natal aspects (within one dataset)
+# - cross aspects (between natal and transit)
+
+[data]
+
+# House cusp sets.
+#
+# Multi-wheel charts may want distinct cusp grids for each wheel.
+#
+# NOTE: `data.house_sets` is the preferred representation for multiple cusp sets.
+# The legacy `data.house_cusps` field can only represent a single set.
+
+[[data.house_sets]]
+id = "natal"
+
+# Natal house cusps.
+[[data.house_sets.house_cusps]]
+house = "First"
+sign_degree = { sign = "Scorpio", degree = 24.0, minutes = 31.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Second"
+sign_degree = { sign = "Sagittarius", degree = 23.0, minutes = 23.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Third"
+sign_degree = { sign = "Capricorn", degree = 22.0, minutes = 48.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Fourth"
+sign_degree = { sign = "Aquarius", degree = 23.0, minutes = 50.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Fifth"
+sign_degree = { sign = "Pisces", degree = 25.0, minutes = 55.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Sixth"
+sign_degree = { sign = "Aries", degree = 26.0, minutes = 40.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Seventh"
+sign_degree = { sign = "Taurus", degree = 24.0, minutes = 31.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Eighth"
+sign_degree = { sign = "Gemini", degree = 23.0, minutes = 23.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Ninth"
+sign_degree = { sign = "Cancer", degree = 22.0, minutes = 48.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Tenth"
+sign_degree = { sign = "Leo", degree = 23.0, minutes = 50.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Eleventh"
+sign_degree = { sign = "Virgo", degree = 25.0, minutes = 55.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Twelfth"
+sign_degree = { sign = "Libra", degree = 26.0, minutes = 40.0 }
+
+
+[[data.house_sets]]
+id = "transit"
+
+# Transit house cusps (dummy snapshot).
+#
+# In a real viewer, these would be computed for the transit time / location.
+[[data.house_sets.house_cusps]]
+house = "First"
+sign_degree = { sign = "Sagittarius", degree = 2.0, minutes = 10.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Second"
+sign_degree = { sign = "Capricorn", degree = 1.0, minutes = 5.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Third"
+sign_degree = { sign = "Aquarius", degree = 0.0, minutes = 33.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Fourth"
+sign_degree = { sign = "Pisces", degree = 1.0, minutes = 20.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Fifth"
+sign_degree = { sign = "Aries", degree = 3.0, minutes = 40.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Sixth"
+sign_degree = { sign = "Taurus", degree = 4.0, minutes = 55.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Seventh"
+sign_degree = { sign = "Gemini", degree = 2.0, minutes = 10.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Eighth"
+sign_degree = { sign = "Cancer", degree = 1.0, minutes = 5.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Ninth"
+sign_degree = { sign = "Leo", degree = 0.0, minutes = 33.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Tenth"
+sign_degree = { sign = "Virgo", degree = 1.0, minutes = 20.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Eleventh"
+sign_degree = { sign = "Libra", degree = 3.0, minutes = 40.0 }
+
+[[data.house_sets.house_cusps]]
+house = "Twelfth"
+sign_degree = { sign = "Scorpio", degree = 4.0, minutes = 55.0 }
+
+
+# Datasets.
+
+[[data.datasets]]
+id = "natal"
+
+# Natal placements (same set as the natal example).
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Scorpio", degree = 8.0, minutes = 21.0 } }, occupant = { Body = "Sun" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Aries", degree = 23.0, minutes = 40.0 } }, occupant = { Body = "Moon" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Scorpio", degree = 29.0, minutes = 29.0 } }, occupant = { Body = "Mercury" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Sagittarius", degree = 11.0, minutes = 45.0 } }, occupant = { Body = "Venus" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Capricorn", degree = 14.0, minutes = 15.0 } }, occupant = { Body = "Mars" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Taurus", degree = 16.0, minutes = 55.0 } }, occupant = { Body = "Jupiter" } }
+motion = "Retrograde"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Libra", degree = 20.0, minutes = 26.0 } }, occupant = { Body = "Saturn" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Cancer", degree = 18.0, minutes = 30.0 } }, occupant = { Body = "Uranus" } }
+motion = "Retrograde"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Libra", degree = 22.0, minutes = 4.0 } }, occupant = { Body = "Neptune" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Leo", degree = 23.0, minutes = 7.0 } }, occupant = { Body = "Pluto" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Capricorn", degree = 8.0, minutes = 19.0 } }, occupant = { Body = "Chiron" } }
+motion = "Direct"
+
+# Optional: include a couple angles so the transit example can show that datasets can contain
+# non-body occupants too.
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Scorpio", degree = 24.0, minutes = 31.0 } }, occupant = { Angle = "Ascendant" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Leo", degree = 23.0, minutes = 50.0 } }, occupant = { Angle = "Midheaven" } }
+motion = "Direct"
+
+
+[[data.datasets]]
+id = "transit"
+
+# Transit placements (dummy snapshot).
+#
+# In a real viewer, these would come from an ephemeris at a selected time.
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Gemini", degree = 9.0, minutes = 12.0 } }, occupant = { Body = "Sun" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Libra", degree = 3.0, minutes = 18.0 } }, occupant = { Body = "Moon" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Taurus", degree = 1.0, minutes = 45.0 } }, occupant = { Body = "Mercury" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Cancer", degree = 27.0, minutes = 9.0 } }, occupant = { Body = "Venus" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Leo", degree = 13.0, minutes = 44.0 } }, occupant = { Body = "Mars" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Gemini", degree = 25.0, minutes = 51.0 } }, occupant = { Body = "Jupiter" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Pisces", degree = 19.0, minutes = 33.0 } }, occupant = { Body = "Saturn" } }
+motion = "Retrograde"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Taurus", degree = 23.0, minutes = 6.0 } }, occupant = { Body = "Uranus" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Aries", degree = 28.0, minutes = 2.0 } }, occupant = { Body = "Neptune" } }
+motion = "Direct"
+
+[[data.datasets.bodies]]
+placement = { coordinate = { SignDegree = { sign = "Aquarius", degree = 2.0, minutes = 33.0 } }, occupant = { Body = "Pluto" } }
+motion = "Retrograde"
+

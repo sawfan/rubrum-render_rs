@@ -1,0 +1,33 @@
+# Aspect computation rules for the natal example.
+#
+# This file is intentionally separate from:
+# - data (placements/cusps)
+# - layout/theme (rendering)
+
+[rules]
+include_bodies = true
+include_chart_points = false
+include_angles = false
+include_lots = false
+
+# Major aspects (customize as desired)
+[[rules.aspects]]
+kind = "Conjunction"
+orb_deg = 8.0
+
+[[rules.aspects]]
+kind = "Sextile"
+orb_deg = 4.0
+
+[[rules.aspects]]
+kind = "Square"
+orb_deg = 6.0
+
+[[rules.aspects]]
+kind = "Trine"
+orb_deg = 6.0
+
+[[rules.aspects]]
+kind = "Opposition"
+orb_deg = 8.0
+

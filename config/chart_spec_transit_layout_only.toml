@@ -1,0 +1,239 @@
+# Transit example: reusable layout only (no theme, no data).
+#
+# This file deserializes into:
+# - Layout
+#
+# Transit charts bind multiple datasets:
+# - natal: reference placements
+# - transit: current sky placements
+#
+# This layout demonstrates:
+# - a dedicated outer band for transit placements
+# - a sign band just inside that
+# - an inner band for natal placements
+#
+# NOTE: The total absolute thickness must fit within the renderer’s available
+# radius. Keep the sum of band thicknesses <= the chart’s available radius.
+
+[layout]
+
+# -----------------------------------------------------------------------------
+# Outer band: transit placements
+# -----------------------------------------------------------------------------
+
+[[layout.bands]]
+id = "transit_outer"
+# Keep total band thickness <= available radius (~410px in the default theme).
+thickness = 110.0
+fill = { r = 0.0, g = 0.0, b = 0.0, a = 0.06 }
+# boundary color omitted => falls back to theme structure color
+boundary = { width = 2.0 }
+
+
+# Render house divisions up to the outer boundary so the transit ring has a
+# visible house grid.
+houses = { enabled = true, numbers = true, house_set = "transit", spoke_to_center = false, spoke = { width = 2.0 }, number_placement = { mode = "cusp_start", corner = "outer", radial_padding = 8.0, angle_offset_deg = 1.0 }, axes = { enabled = true, asc_desc = true, mc_ic = true, to_center = false, stroke = { width = 5.0 } } }
+
+# Transit placements lane.
+[[layout.bands.lanes]]
+id = "transit_bodies"
+dataset = "transit"
+
+[layout.bands.lanes.glyphs]
+mode = "bodies"
+# Keep transit glyphs closer to the outer boundary.
+radial_bias = 0.25
+#collision_avoidance = { enabled = true }
+
+[layout.bands.lanes.glyphs.placement_ticks]
+enabled = true
+length = 10.0
+offset = 2.0
+end_gap = 16.0
+
+# Tick under each transit placement glyph, anchored on the **inner** boundary of the transit
+# placements band (i.e. on the house boundary circle), extending outward towards (but not all the way to)
+# the glyph.
+[layout.bands.lanes.glyphs.placement_boundary_ticks]
+enabled = true
+anchor = "inner"
+direction = "outward"
+length_in = 0.0
+length_out = 6.0
+offset_in = 0.0
+offset_out = 1.0
+width = 2.0
+# Transit ticks: grey so we can distinguish them from natal.
+stroke = { r = 0.70, g = 0.70, b = 0.70, a = 1.0 }
+
+[layout.bands.lanes.glyphs.placement_labels]
+enabled = true
+# Render transit labels outward (away from the chart center).
+side = "outer"
+collision_avoidance = true
+# Keep the existing naming for now: these are interpreted as "offset/step on the chosen side".
+offset_in = 24.0
+step_in = 10.0
+
+segments = [
+  { text = "{deg}°", font_size = 12.0 },
+  { text = "{sign_glyph}", sign_glyph = { size = 14.0 } },
+  { text = "{min}′", font_size = 9.0 },
+]
+
+[layout.bands.lanes.glyphs.placement_labels.text]
+font_size = 10.0
+
+[layout.bands.lanes.glyphs.placement_labels.sign_glyph]
+size = 12.0
+
+
+# -----------------------------------------------------------------------------
+# Sign band
+# -----------------------------------------------------------------------------
+
+[[layout.bands]]
+id = "signs"
+thickness = 70.0
+fill = { r = 1.0, g = 1.0, b = 1.0, a = 0.0 }
+# boundary color omitted => falls back to theme structure color
+boundary = { width = 2.0 }
+# tick stroke omitted => falls back to theme ticks color
+ticks_inner = { enabled = true, anchor = "inner", direction = "outward", length_out = 20.0 }
+# Second tick system on the opposite boundary (outer edge of the sign band).
+# Keep these shorter so they read as secondary.
+ticks_outer = { enabled = true, anchor = "outer", direction = "inward", length_in = 20.0 }
+
+signs = { enabled = true, dividers = true, labels = true }
+
+
+# -----------------------------------------------------------------------------
+# Inner band: natal placements
+# -----------------------------------------------------------------------------
+
+[[layout.bands]]
+id = "natal"
+thickness = 90.0
+
+# Extend house divisions up into the natal placements band so they read through the placements ring.
+houses = { enabled = true, numbers = false, spoke_to_center = false, house_set = "natal", spoke = { width = 1.0 }, axes = { enabled = false, asc_desc = true, mc_ic = true, to_center = false, stroke = { width = 5.0 } } }
+
+# Natal placements lane.
+[[layout.bands.lanes]]
+id = "natal_bodies"
+dataset = "natal"
+
+[layout.bands.lanes.glyphs]
+mode = "bodies"
+radial_bias = 0.75
+collision_avoidance = { enabled = true }
+
+[layout.bands.lanes.glyphs.placement_ticks]
+enabled = true
+length = 10.0
+offset = 2.0
+end_gap = 16.0
+
+# Tick under each natal placement glyph, anchored on the **outer** boundary of the natal
+# placements band (i.e. the shared boundary with the sign band), extending inward to meet the glyph.
+[layout.bands.lanes.glyphs.placement_boundary_ticks]
+enabled = true
+anchor = "outer"
+direction = "inward"
+length_in = 6.0
+length_out = 0.0
+offset_in = 0.0
+offset_out = 0.0
+width = 2.0
+# Natal ticks: keep white so they read as the primary reference.
+stroke = { r = 0.95, g = 0.95, b = 0.95, a = 1.0 }
+
+[layout.bands.lanes.glyphs.placement_labels]
+enabled = true
+collision_avoidance = true
+offset_in = 20.0
+step_in = 10.0
+
+segments = [
+  { text = "{deg}°", font_size = 10.0 },
+  { text = "{sign_glyph}", sign_glyph = { size = 14.0 } },
+  { text = "{min}′", font_size = 9.0 },
+]
+
+[layout.bands.lanes.glyphs.placement_labels.text]
+font_size = 10.0
+
+[layout.bands.lanes.glyphs.placement_labels.sign_glyph]
+size = 12.0
+
+[layout.bands.lanes.overrides]
+fill = { r = 0.0, g = 0.0, b = 0.0, a = 0.10 }
+
+
+# -----------------------------------------------------------------------------
+# House numbers + shared endpoint ticks band
+# -----------------------------------------------------------------------------
+
+[[layout.bands]]
+id = "house_numbers"
+thickness = 120.0
+fill = { r = 1.0, g = 1.0, b = 1.0, a = 0.0 }
+boundary = { width = 1.0 }
+# Render the (natal) house grid spokes through this band.
+#
+# IMPORTANT: We keep natal house divider lines extending to the chart center.
+# The outer transit house grid + numbers are rendered in the outer `transit_outer` band.
+houses = { enabled = true, numbers = false, house_set = "natal", spoke_to_center = true, spoke = { width = 2.0 }, axes = { enabled = true, asc_desc = true, mc_ic = true, to_center = true, stroke = { width = 5.0 } } }
+
+# Natal house numbers (midpoints between cusps), slightly inward so they sit visually centered.
+[[layout.bands.lanes]]
+id = "natal_house_numbers"
+house_set = "natal"
+
+[layout.bands.lanes.glyphs]
+mode = "house_numbers"
+# Keep natal house numbers radially centered within the band.
+radial_bias = 0.30
+
+[layout.bands.lanes.overrides]
+font_family = "DejaVu Sans"
+font_size = 14.0
+# Keep natal numbers bright/white.
+stroke = { r = 0.95, g = 0.95, b = 0.95, a = 1.0 }
+
+# NOTE: Transit house numbers are rendered directly on the outer transit house wheel
+# using `layout.bands[].houses.number_placement` with `mode = "cusp_start"`.
+# This avoids double-rendering house numbers in a separate inner ring.
+
+
+# Shared endpoint tick ring for aspects: placement degrees for BOTH datasets on the same boundary.
+#
+# We intentionally render these ticks in the `natal` band (anchored on its INNER boundary)
+# so the `house_numbers` band can stay single-lane and avoid emitting lane-separator circles.
+
+
+# -----------------------------------------------------------------------------
+# Aspects band
+# -----------------------------------------------------------------------------
+
+[[layout.bands]]
+id = "aspects"
+thickness = 20.0
+fill = { r = 1.0, g = 1.0, b = 1.0, a = 0.0 }
+
+[[layout.bands.lanes]]
+id = "aspects"
+dataset = "transit"
+
+[layout.bands.lanes.glyphs]
+mode = "cross_aspects"
+other_dataset = "natal"
+radial_bias = 0.5
+
+# Render aspect ticks on the **outer** boundary of this band, so they visually align
+# with the outer wheel border and point inward.
+[layout.bands.lanes.glyphs.placement_boundary_ticks]
+# The transit layout uses the shared endpoint tick ring in the `house_numbers` band.
+# Disable the aspects-lane tick ring so we only have the four intended placement tick sets.
+enabled = false
+

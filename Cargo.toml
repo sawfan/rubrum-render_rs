@@ -1,0 +1,16 @@
+[package]
+name = "rubrum_render"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+# No default backend features.
+default = []
+
+[dependencies]
+serde = { version = "1.0.219", features = ["derive"] }
+
+# Local dependency.
+rubrum = "*"
+
+

@@ -1,0 +1,69 @@
+# Shared dark theme for spec examples.
+#
+# This file deserializes into:
+# - Theme
+
+[theme]
+
+# Theme-level base palette.
+#
+# Renderers can use these as fallbacks when a more specific stroke/fill isn't provided.
+# In particular:
+# - band ticks default to `base_colors.muted` when `ticks.stroke` is omitted
+# - injected aspect lines default to `base_colors.muted` when `theme.aspects.stroke.color` is omitted
+[theme.color_mode]
+mode = "dark"
+
+[theme.color_mode.dark]
+background = { r = 0.08, g = 0.08, b = 0.09, a = 1.0 }
+foreground = { r = 0.95, g = 0.95, b = 0.95, a = 1.0 }
+muted = { r = 0.65, g = 0.65, b = 0.65, a = 1.0 }
+
+[theme.aspects]
+enabled = true
+radius_factor = 1.0
+require_endpoints_present = true
+
+[theme.aspects.stroke]
+# color omitted => falls back to `theme.effective_base_colors().muted`
+width = 1.2
+alpha = 0.55
+
+[theme.cairo]
+occupant_glyph_mode = "PreferSvgFallbackText"
+occupant_symbol_size = 25.0
+placement_collision_avoidance = false
+
+# Prefer the white glyph set on dark backgrounds.
+# (This is intentionally explicit; we are treating dark mode as just another theme.)
+glyph_set = "white"
+
+[theme.svg]
+
+# Pure-SVG backend glyph configuration.
+#
+# We default to enabling sprite-based sign labels (more consistent than platform-dependent
+# unicode font glyphs), but we intentionally DO NOT hard-code `glyph_sprite_url` here.
+#
+# Downstream consumers should set `theme.svg.glyph_sprite_url` at runtime to either:
+# - an external sprite sheet URL (e.g. "/assets/glyphs_white.svg"), or
+# - "" to indicate an in-document (fragment-only) sprite sheet, so `<use href="#rb-...">` works.
+use_sprite_sign_labels = true
+
+# Tight SVG wheel canvas for chart composition.
+fill_canvas = true
+fill_canvas_margin_px = 0.0
+
+# Optional aspect-grid palette overrides.
+#
+# If omitted, the aspect-grid renderer derives sensible defaults from the theme.
+[theme.svg.aspect_grid]
+canvas_bg = { r = 0.08, g = 0.08, b = 0.09, a = 1.0 }
+cell_bg = { r = 0.12, g = 0.12, b = 0.13, a = 1.0 }
+grid_line = { r = 0.65, g = 0.65, b = 0.65, a = 0.45 }
+text = { r = 0.95, g = 0.95, b = 0.95, a = 1.0 }
+
+[theme.dataset_colors]
+# Light-colored dataset default, used as a fallback for glyph/text defaults.
+natal = { r = 0.95, g = 0.95, b = 0.95, a = 1.0 }
+
