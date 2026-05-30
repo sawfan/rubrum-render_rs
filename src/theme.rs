@@ -1,3 +1,4 @@
+use crate::glyph_paint::GlyphTheme;
 use crate::options::{ChartCairoOptions, RgbaColor};
 use crate::style::LaneTemplate;
 use serde::{Deserialize, Serialize};
@@ -64,7 +65,7 @@ pub struct SvgThemeOptions {
 /// These are intentionally limited to "background + lines + text" so downstream apps can:
 /// - inherit from the chart theme by default
 /// - override just the aspect grid without affecting the chart
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AspectGridTheme {
     /// Overall SVG canvas background.
@@ -78,17 +79,6 @@ pub struct AspectGridTheme {
 
     /// Text color used for labels.
     pub text: Option<RgbaColor>,
-}
-
-impl Default for AspectGridTheme {
-    fn default() -> Self {
-        Self {
-            canvas_bg: None,
-            cell_bg: None,
-            grid_line: None,
-            text: None,
-        }
-    }
 }
 
 impl Default for SvgThemeOptions {
@@ -212,6 +202,10 @@ pub struct Theme {
     /// Optional additional color-role defaults.
     #[serde(default)]
     pub colors: ColorRoles,
+
+    /// Glyph paint/color customization rules shared by SVG renderers.
+    #[serde(default)]
+    pub glyphs: GlyphTheme,
 
     /// Rendering configuration for aspect lines.
     #[serde(default)]

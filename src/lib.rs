@@ -19,6 +19,7 @@ pub mod embedded_configs;
 
 pub mod dataset;
 pub mod error;
+pub mod glyph_paint;
 pub mod glyphs;
 pub mod labels;
 pub mod layout;
@@ -35,6 +36,11 @@ pub use chart_data::ChartData;
 pub use core::render_plan::{RenderPlan, plan_chart_spec};
 pub use dataset::{DatasetData, HouseSetData};
 pub use error::ChartRenderError;
+pub use glyph_paint::{
+    GlyphPaint, GlyphTheme, OccupantGlyphTheme, SignGlyphTheme, occupant_type_key,
+    resolve_occupant_glyph_paint, resolve_sign_glyph_paint, sign_element,
+};
+pub use glyphs::*;
 pub use layout::Layout;
 pub use options::{CairoOccupantGlyphMode, ChartCairoOptions, RgbaColor};
 pub use theme::Theme;
