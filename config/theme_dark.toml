@@ -44,6 +44,30 @@ enabled = true
 radius_factor = 1.0
 require_endpoints_present = true
 
+[[theme.aspects.kind_styles]]
+kind = "trine"
+stroke = { color = { r = 0.24, g = 0.54, b = 0.95, a = 1.0 }, width = 1.1, alpha = 0.62 }
+
+[[theme.aspects.kind_styles]]
+kind = "sextile"
+stroke = { color = { r = 0.24, g = 0.54, b = 0.95, a = 1.0 }, width = 1.0, alpha = 0.58, dash = [4.0, 3.0] }
+
+[[theme.aspects.kind_styles]]
+kind = "square"
+stroke = { color = { r = 0.95, g = 0.22, b = 0.14, a = 1.0 }, width = 1.25, alpha = 0.68 }
+
+[[theme.aspects.kind_styles]]
+kind = "opposition"
+stroke = { color = { r = 0.95, g = 0.22, b = 0.14, a = 1.0 }, width = 1.35, alpha = 0.72 }
+
+[[theme.aspects.kind_styles]]
+kind = "conjunction"
+stroke = { color = { r = 0.95, g = 0.95, b = 0.95, a = 1.0 }, width = 1.1, alpha = 0.55 }
+
+[[theme.aspects.kind_styles]]
+kind = "quincunx"
+stroke = { color = { r = 0.70, g = 0.45, b = 0.82, a = 1.0 }, width = 0.95, alpha = 0.50, dash = [2.0, 3.0] }
+
 [theme.aspects.stroke]
 # color omitted => falls back to `theme.effective_base_colors().muted`
 width = 1.2

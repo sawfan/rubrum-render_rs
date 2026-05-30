@@ -107,6 +107,81 @@ impl Default for AspectStrokeStyle {
 /// Per-kind stroke overrides.
 ///
 /// All fields are optional and only apply when set.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum AspectKindGroup {
+    Hard,
+    Soft,
+    Neutral,
+    Minor,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct ResolvedAspectStrokeStyle {
+    pub color: RgbaColor,
+    pub width: f64,
+    pub dash: Option<Vec<f64>>,
+    pub linecap: Option<StrokeLineCap>,
+}
+
+pub fn aspect_kind_group(kind: &rubrum::DegreeAspectKind) -> AspectKindGroup {
+    use rubrum::DegreeAspectKind;
+
+    match kind {
+        DegreeAspectKind::Square
+        | DegreeAspectKind::Opposition
+        | DegreeAspectKind::SemiSquare
+        | DegreeAspectKind::Sesquiquadrate => AspectKindGroup::Hard,
+        DegreeAspectKind::Trine | DegreeAspectKind::Sextile => AspectKindGroup::Soft,
+        DegreeAspectKind::Conjunction => AspectKindGroup::Neutral,
+        _ => AspectKindGroup::Minor,
+    }
+}
+
+pub fn resolve_aspect_stroke_style(
+    aspects: &AspectsStyle,
+    kind: &rubrum::DegreeAspectKind,
+    fallback_color: RgbaColor,
+    fallback_width: f64,
+) -> ResolvedAspectStrokeStyle {
+    let kind_override = aspects.kind_styles.iter().find(|s| s.kind == *kind);
+
+    let color = kind_override
+        .and_then(|s| s.stroke.color)
+        .or(aspects.stroke.color)
+        .unwrap_or(fallback_color);
+
+    let alpha = kind_override
+        .and_then(|s| s.stroke.alpha)
+        .or(aspects.stroke.alpha)
+        .unwrap_or(1.0)
+        .clamp(0.0, 1.0);
+
+    let mut color = color;
+    color.a *= alpha;
+
+    let width = kind_override
+        .and_then(|s| s.stroke.width)
+        .or(aspects.stroke.width)
+        .unwrap_or(fallback_width)
+        .max(0.1);
+
+    let dash = kind_override
+        .and_then(|s| s.stroke.dash.clone())
+        .or_else(|| aspects.stroke.dash.clone());
+
+    let linecap = kind_override
+        .and_then(|s| s.stroke.linecap)
+        .or(aspects.stroke.linecap);
+
+    ResolvedAspectStrokeStyle {
+        color,
+        width,
+        dash,
+        linecap,
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 #[serde(default)]
 pub struct AspectStrokeStyleOverride {
