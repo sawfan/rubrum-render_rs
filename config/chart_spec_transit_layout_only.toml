@@ -179,11 +179,13 @@ id = "house_numbers"
 thickness = 120.0
 fill = { r = 1.0, g = 1.0, b = 1.0, a = 0.0 }
 boundary = { width = 1.0 }
-# Render the (natal) house grid spokes through this band.
+# Render the (natal) house grid spokes through this band only.
 #
-# IMPORTANT: We keep natal house divider lines extending to the chart center.
+# IMPORTANT: Keep natal house divider lines out of the central aspect area.
+# Transit aspect chords already occupy the tiny center, and extending house
+# spokes/axes to the wheel center makes that area too visually noisy.
 # The outer transit house grid + numbers are rendered in the outer `transit_outer` band.
-houses = { enabled = true, numbers = false, house_set = "natal", spoke_to_center = true, spoke = { width = 2.0 }, axes = { enabled = true, asc_desc = true, mc_ic = true, to_center = true, stroke = { width = 5.0 } } }
+houses = { enabled = true, numbers = false, house_set = "natal", spoke_to_center = false, spoke = { width = 2.0 }, axes = { enabled = true, asc_desc = true, mc_ic = true, to_center = false, stroke = { width = 5.0 } } }
 
 # Natal house numbers (midpoints between cusps), slightly inward so they sit visually centered.
 [[layout.bands.lanes]]
