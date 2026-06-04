@@ -19,7 +19,10 @@ pub fn chart_point_svg_symbol_id(point: ChartPoint) -> String {
 }
 
 pub fn angle_svg_symbol_id(angle: Angle) -> String {
-    format!("rb-angle-{}", Angle::canonical_key(angle))
+    match angle {
+        Angle::ImumCoeli => "rb-angle-imumcoeli".to_owned(),
+        _ => format!("rb-angle-{}", Angle::canonical_key(angle)),
+    }
 }
 
 pub fn lot_svg_symbol_id(lot: rubrum::Lot) -> String {
@@ -41,6 +44,10 @@ pub fn sign_svg_symbol_id(sign: Sign) -> &'static str {
         Sign::Aquarius => "rb-sign-aquarius",
         Sign::Pisces => "rb-sign-pisces",
     }
+}
+
+pub fn retrograde_svg_symbol_id() -> &'static str {
+    "rb-motion-retrograde"
 }
 
 /// Legacy fixed filenames for the oldest body packs.
