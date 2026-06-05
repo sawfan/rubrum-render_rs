@@ -10,9 +10,9 @@
 
 [rules]
 include_bodies = true
-include_chart_points = false
-include_angles = false
-include_lots = false
+include_chart_points = true
+include_angles = true
+include_lots = true
 
 # Major aspects (customize as desired)
 [[rules.aspects]]
