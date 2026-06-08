@@ -32,7 +32,7 @@ pub mod theme;
 pub mod thickness;
 
 pub use aspects::*;
-pub use chart_data::ChartData;
+pub use chart_data::{ChartData, DatasetMetadata, PlacementMetadata};
 pub use core::render_plan::{RenderPlan, plan_chart_spec};
 pub use dataset::{DatasetData, HouseSetData};
 pub use error::ChartRenderError;

@@ -2,12 +2,35 @@ use serde::{Deserialize, Serialize};
 
 use crate::dataset::{DatasetData, HouseSetData};
 
+/// Optional per-placement metadata keyed by occupant.
+///
+/// The renderer treats this as data input (not styling/geometry). For example,
+/// glyph lanes may use `declination_deg` to vary radial placement inside the lane.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+pub struct PlacementMetadata {
+    pub occupant: rubrum::Occupant,
+
+    /// Apparent equatorial declination in degrees.
+    #[serde(default)]
+    pub declination_deg: Option<f64>,
+}
+
+/// Dataset-level render metadata.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
+pub struct DatasetMetadata {
+    pub id: String,
+
+    #[serde(default)]
+    pub placements: Vec<PlacementMetadata>,
+}
+
 /// Chart data for rendering.
 ///
 /// Strict responsibility:
 /// - Longitudes
 /// - Retrograde flags (when applicable)
 /// - Cusps
+/// - Optional render metadata such as declination
 /// - No styling
 /// - No geometry
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
@@ -31,6 +54,10 @@ pub struct ChartData {
     /// This carries cusps only (no styling / geometry).
     #[serde(default)]
     pub house_sets: Vec<HouseSetData>,
+
+    /// Optional per-dataset render metadata.
+    #[serde(default)]
+    pub dataset_metadata: Vec<DatasetMetadata>,
 
     /// House cusps expressed as absolute zodiac longitudes.
     ///
@@ -107,6 +134,18 @@ impl ChartData {
 
         None
     }
+
+    /// Resolve optional render metadata for a placement in a dataset.
+    pub fn placement_metadata(
+        &self,
+        dataset_id: &str,
+        occupant: rubrum::Occupant,
+    ) -> Option<&PlacementMetadata> {
+        self.dataset_metadata
+            .iter()
+            .find(|metadata| metadata.id == dataset_id)
+            .and_then(|metadata| metadata.placements.iter().find(|m| m.occupant == occupant))
+    }
 }
 
 impl From<&rubrum::Chart> for ChartData {
@@ -132,6 +171,7 @@ impl From<&rubrum::Chart> for ChartData {
             natal_bodies,
             datasets: Vec::new(),
             house_sets: Vec::new(),
+            dataset_metadata: Vec::new(),
             house_cusps,
         }
     }

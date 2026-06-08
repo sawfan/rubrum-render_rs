@@ -425,6 +425,32 @@ pub enum TickDirection {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
+pub struct DeclinationRadialPlacementSpec {
+    /// If true, vary body glyph radius inside this lane from apparent equatorial declination.
+    #[serde(default)]
+    pub enabled: bool,
+
+    /// Theoretical declination used for normalization. Values beyond this are clamped.
+    /// A 30° default keeps ordinary planets visible without overreacting to outliers.
+    #[serde(default)]
+    pub max_declination_deg: Option<f64>,
+
+    /// Fraction of usable half-lane travel to use. `1.0` may touch lane padding;
+    /// lower values are calmer. Default is intentionally subtle.
+    #[serde(default)]
+    pub strength: Option<f64>,
+
+    /// Soft compression curve. Larger values push high declinations toward the lane edge
+    /// while retaining visible separation near the center.
+    #[serde(default)]
+    pub curve: Option<f64>,
+
+    /// Padding from lane boundaries in px before mapping declination.
+    #[serde(default)]
+    pub padding_px: Option<f64>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct GlyphLaneSpec {
     #[serde(default)]
     pub mode: GlyphLaneMode,
@@ -439,6 +465,10 @@ pub struct GlyphLaneSpec {
 
     #[serde(default)]
     pub radial_bias: Option<f64>,
+
+    /// Optional declination-aware radial placement within the glyph lane.
+    #[serde(default)]
+    pub declination_radial: Option<DeclinationRadialPlacementSpec>,
 
     #[serde(default)]
     pub collision_avoidance: Option<CollisionAvoidanceSpec>,
