@@ -15,6 +15,7 @@ pub mod core;
 ///
 /// These are embedded so WASM builds don't rely on filesystem paths, and so multiple frontends
 /// (Cairo, SVG, editor/viewer) can share the same starting point.
+pub mod declination_map;
 pub mod embedded_configs;
 
 pub mod dataset;
@@ -35,6 +36,7 @@ pub use aspects::*;
 pub use chart_data::{ChartData, DatasetMetadata, PlacementMetadata};
 pub use core::render_plan::{RenderPlan, plan_chart_spec};
 pub use dataset::{DatasetData, HouseSetData};
+pub use declination_map::DeclinationMapLayout;
 pub use error::ChartRenderError;
 pub use glyph_paint::{
     GlyphPaint, GlyphTheme, OccupantGlyphTheme, SignGlyphTheme, occupant_type_key,

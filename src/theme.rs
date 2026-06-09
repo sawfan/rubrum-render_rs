@@ -58,6 +58,44 @@ pub struct SvgThemeOptions {
     /// When omitted, the SVG backend should derive sensible defaults from the theme's
     /// base palette (light/dark) and color roles.
     pub aspect_grid: Option<AspectGridTheme>,
+
+    /// Optional styling overrides for the declination-map render target.
+    ///
+    /// Like the aspect grid, this rectangular chart projection inherits from the main chart
+    /// theme by default while allowing dedicated export/theme tuning.
+    pub declination_map: Option<DeclinationMapTheme>,
+}
+
+/// Color palette for declination-map rendering.
+///
+/// These roles intentionally mirror the visual primitives of a rectangular coordinate plot while
+/// remaining compatible with the broader chart theme.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, Default)]
+#[serde(default)]
+pub struct DeclinationMapTheme {
+    /// Overall SVG canvas background.
+    pub canvas_bg: Option<RgbaColor>,
+
+    /// Inner plot background.
+    pub plot_bg: Option<RgbaColor>,
+
+    /// Grid line color.
+    pub grid_line: Option<RgbaColor>,
+
+    /// Celestial equator line color.
+    pub equator: Option<RgbaColor>,
+
+    /// Ecliptic/Solar declination reference curve color.
+    pub ecliptic: Option<RgbaColor>,
+
+    /// Tropic/out-of-bounds boundary line color.
+    pub tropic: Option<RgbaColor>,
+
+    /// Text/axis/sign-label color.
+    pub text: Option<RgbaColor>,
+
+    /// Shaded out-of-bounds band color.
+    pub out_of_bounds_band: Option<RgbaColor>,
 }
 
 /// Color palette for aspect-grid rendering.
@@ -94,6 +132,7 @@ impl Default for SvgThemeOptions {
             fill_canvas: false,
             fill_canvas_margin_px: 0.0,
             aspect_grid: None,
+            declination_map: None,
         }
     }
 }
