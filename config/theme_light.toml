@@ -13,6 +13,11 @@ earth = { color = { r = 0.25, g = 0.48, b = 0.18, a = 1.0 } }
 air = { color = { r = 0.72, g = 0.52, b = 0.06, a = 1.0 } }
 water = { color = { r = 0.10, g = 0.32, b = 0.75, a = 1.0 } }
 
+[theme.glyphs.occupants.by_type]
+chart_point = { color = { r = 0.72, g = 0.20, b = 0.82, a = 1.0 } }
+angle = { color = { r = 0.72, g = 0.46, b = 0.02, a = 1.0 } }
+lot = { color = { r = 0.68, g = 0.26, b = 0.78, a = 1.0 } }
+
 [theme.glyphs.occupants.by_occupant]
 sun = { color = { r = 0.86, g = 0.52, b = 0.02, a = 1.0 } }
 moon = { color = { r = 0.42, g = 0.48, b = 0.60, a = 1.0 } }
@@ -24,6 +29,16 @@ saturn = { color = { r = 0.45, g = 0.36, b = 0.22, a = 1.0 } }
 uranus = { color = { r = 0.04, g = 0.58, b = 0.60, a = 1.0 } }
 neptune = { color = { r = 0.12, g = 0.24, b = 0.72, a = 1.0 } }
 pluto = { color = { r = 0.48, g = 0.22, b = 0.62, a = 1.0 } }
+
+true_node = { color = { r = 0.72, g = 0.20, b = 0.82, a = 1.0 } }
+mean_node = { color = { r = 0.72, g = 0.20, b = 0.82, a = 1.0 } }
+true_south_node = { color = { r = 0.58, g = 0.30, b = 0.82, a = 1.0 } }
+mean_south_node = { color = { r = 0.58, g = 0.30, b = 0.82, a = 1.0 } }
+ascendant = { color = { r = 0.72, g = 0.46, b = 0.02, a = 1.0 } }
+descendant = { color = { r = 0.72, g = 0.46, b = 0.02, a = 1.0 } }
+midheaven = { color = { r = 0.72, g = 0.46, b = 0.02, a = 1.0 } }
+imum_coeli = { color = { r = 0.72, g = 0.46, b = 0.02, a = 1.0 } }
+fortune = { color = { r = 0.68, g = 0.26, b = 0.78, a = 1.0 } }
 
 [theme.aspects]
 enabled = true
